@@ -5,7 +5,7 @@ description = "Default template for PDM package"
 authors = [
     {name = "Jonathan Elsner", email = "jeelsner+gh@outlook.com"},
 ]
-dependencies = []
+dependencies = ["beautifulsoup4>=4.13.3", "pandas>=2.2.3", "html5lib>=1.1", "pyarrow>=19.0.1"]
 requires-python = "==3.12.*"
 readme = "README.md"
 license = {text = "MIT"}
@@ -13,3 +13,8 @@ license = {text = "MIT"}
 
 [tool.pdm]
 distribution = false
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+]
