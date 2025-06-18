@@ -11,3 +11,6 @@ data/flags
 **.out
 **.pdf
 **.synctex.gz
+**.synctex
+
+**.zip
