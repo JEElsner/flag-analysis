@@ -14,3 +14,5 @@ data/flags
 **.synctex
 
 **.zip
+
+!/writeup/res/*
