@@ -25,3 +25,15 @@ With a suitable installation of LaTeX, run the following command:
 ```bash
 latexmk --pdf 'Fun with Flags.tex'
 ```
+
+### Convert writeup to HTML
+
+This project is featured on my [website](https://jeelsner.github.io/projects/fun-with-flags.html)! I created the HTML using [pandoc](https://pandoc.org/), with some light (/s) manual modifications:
+
+```bash
+pandoc -s -c style.css 'Fun with Flags.tex' -C --bibliography=HW_references.bib --mathjax --ascii -M link-citations=true -M reference-section-title=References -o fun-with-flags.html
+```
+
+# License
+
+This project is created under the MIT License, detailed in then [LICENSE](LICENSE) file.
