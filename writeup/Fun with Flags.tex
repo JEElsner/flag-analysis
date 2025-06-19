@@ -34,7 +34,10 @@
 \begin{document}
 
 \begin{abstract}
-    Flags are an important symbol of a nation, putting its values and heritage on display for the world. As such, it is important that a flag be well designed and distinctive. We use data analysis to examine similarities and differences between national flags to identify patterns in flag design.
+    Flags are an important symbol of a nation, putting its values and heritage
+    on display for the world. As such, it is important that a flag be well
+    designed and distinctive. We use data analysis to examine similarities and
+    differences between national flags to identify patterns in flag design.
 \end{abstract}
 
 \maketitle 
@@ -68,8 +71,9 @@ basic principles of flag design:
 
 Obviously, these are merely guidelines, and as flags are the product of cultural
 and political processes, rarely adhered to. For example, the flags of Chad and
-Romania (see Figure \ref{fig:chad-romania}) completely fail tenet five (be distinctive or be related) as the
-countries are completely politically and culturally unrelated while their flags are extremely similar.
+Romania (see Figure \ref{fig:chad-romania}) completely fail tenet five (be
+distinctive or be related) as the countries are completely politically and
+culturally unrelated while their flags are extremely similar.
 
 \begin{figure}[h!]
     \centering
@@ -131,7 +135,8 @@ Intuitively, common words like `the' and `to' do not give very much context to
 any specific document because they have no meaning specific to a topic. So even
 though they occur frequently and consequently have a high \(\tf\), they should
 be weighted lower. Inverse document frequency achieves this by measuring how
-often a term appears in the entire corpus of documents. \(\idf\) is computed as follows:
+often a term appears in the entire corpus of documents. \(\idf\) is computed as
+follows:
 \[ \idf(t, D) = \log \frac{|D|}{|\left\{ d : d \in D \text{ and } t \in
 d\right\}|}\] where \(D\) is the set of all documents \(d\) (the ``corpus'').
 This quantity is large for rare words and small for common words.
@@ -141,7 +146,7 @@ Finally, tf-idf combines these two factors by multiplication:
 
 \subsection*{Singular Value Decomposition (PCA)}
 
-For any matrix \(A \in \reals^(m\times n)\), there exist unitary matrices \(U
+For any matrix \(A \in \reals^{m\times n}\), there exist unitary matrices \(U
 \in \reals^{m \times m}\)
 and \(V \in \reals^{n \times n}\) and a diagonal matrix \(\Sigma \in \reals^{m
 \times n}\) such that
@@ -227,7 +232,8 @@ described in section \ref{sec:silhouette-score} are helpful. Because of the
 randomness in initialization, it is common to run \(k\)-means multiple times and
 select the run with the `best' clustering.
 
-The clusters created by \(k\)-means is readily visualized, creating a Voronoi diagram.
+The clusters created by \(k\)-means is readily visualized, creating a Voronoi
+diagram.
 
 \begin{algorithm}[!ht]
 \caption{k-means}\label{alg:k-means}
@@ -265,7 +271,14 @@ The clusters created by \(k\)-means is readily visualized, creating a Voronoi di
 
 \subsection*{Gaussian Mixture Models (GMMs)} \label{sec:gmms}
 
-\(k\)-means is not without its drawbacks. Most importantly, it assumes that latent clusters contain about the same number of points and have the same variance. If latent clusters in the data do not have uniform density, \(k\)-means can create clusters that do not describe the data well. Gaussian Mixture Models do not share these assumptions, and can perform better in such cases. GMMs model clusters and the normally-distributed probability that a point belongs to a cluster. The Expectation Maximization algorithm used to compute these clusters is described in Algorithm \ref{alg:gmm}.
+\(k\)-means is not without its drawbacks. Most importantly, it assumes that
+latent clusters contain about the same number of points and have the same
+variance. If latent clusters in the data do not have uniform density,
+\(k\)-means can create clusters that do not describe the data well. Gaussian
+Mixture Models do not share these assumptions, and can perform better in such
+cases. GMMs model clusters and the normally-distributed probability that a point
+belongs to a cluster. The Expectation Maximization algorithm used to compute
+these clusters is described in Algorithm \ref{alg:gmm}.
 
 \begin{algorithm}
     \caption{Expectation Maximization for GMMs}\label{alg:gmm}
@@ -352,17 +365,32 @@ being easily visualized.
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.25\textwidth]{./res/Flag_of_Uganda.svg.png}
-    \caption{Flag of Uganda. Description on Wikipedia: \emph{Six equal horizontal bands of black (top), yellow, red, black, yellow, and red; a white disk is superimposed at the center and depicts a grey crowned crane (the national symbol) facing the hoist side. } \label{fig:uganda}}
+    \caption{Flag of Uganda. Description on Wikipedia: \emph{Six equal
+    horizontal bands of black (top), yellow, red, black, yellow, and red; a
+    white disk is superimposed at the center and depicts a grey crowned crane
+    (the national symbol) facing the hoist side. } \label{fig:uganda}}
 \end{figure}
 
 \section{Computational Results}\label{sec:results}
 
-Analyzing figure \ref{fig:flag-pca}, we can readily make a few observations. First, the first two PCs nicely separate flags with crosses in the lower right-hand corner; Denmark, Sweden, Switzerland, and others are tightly grouped there. Further, crosses with eight arms are nearby (the United Kingdom and North Macedonia\footnote{North Macedonia (yellow rays on a red background)'s proximity is especially impressive since it's description does not include the word `cross'.}). We also see that flags with a solid circle in the middle (Japan, Bangladesh, Palau) have also been nicely separated from other flags in the upper right, although they are not as tightly grouped. 
+Analyzing figure \ref{fig:flag-pca}, we can readily make a few observations.
+First, the first two PCs nicely separate flags with crosses in the lower
+right-hand corner; Denmark, Sweden, Switzerland, and others are tightly grouped
+there. Further, crosses with eight arms are nearby (the United Kingdom and North
+Macedonia\footnote{North Macedonia (yellow rays on a red background)'s proximity
+is especially impressive since it's description does not include the word
+`cross'.}). We also see that flags with a solid circle in the middle (Japan,
+Bangladesh, Palau) have also been nicely separated from other flags in the upper
+right, although they are not as tightly grouped. 
 
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.8\textwidth]{./res/flags-kmeans-gmm.pdf}
-    \caption{Flags plotted on the first two principal components of their descriptions. A Voronoi diagram with the boundaries of \(10\)-means clusters on 2-PCs is overlaid; means are blue points, boundary corners are orange. Ellipses are GMM confidence intervals; note that a flag does not have to be within an ellipse to be assigned to that category.\label{fig:flag-pca}}
+    \caption{Flags plotted on the first two principal components of their
+    descriptions. A Voronoi diagram with the boundaries of \(10\)-means clusters
+    on 2-PCs is overlaid; means are blue points, boundary corners are orange.
+    Ellipses are GMM confidence intervals; note that a flag does not have to be
+    within an ellipse to be assigned to that category.\label{fig:flag-pca}}
 \end{figure}
 
 % \todo{what does each PC mean?}
