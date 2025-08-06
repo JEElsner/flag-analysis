@@ -1,0 +1,33 @@
+from typing import Tuple, Callable, Optional
+
+from os import PathLike
+
+from torch import Tensor
+from torch.utils.data import Dataset
+from torchvision.io import decode_image
+
+from downlad_data import get_flag_data
+
+class FlagImagesDataset(Dataset):
+    def __init__(self, data_dir: PathLike | str = '../data', transform: Optional[Callable[[Tensor], Tensor]] = None, target_transform: Optional[Callable[[str], str]] = None) -> None:
+        self.flag_table = get_flag_data(data_dir) # type: ignore
+
+        self.transform = transform
+        self.target_transform = target_transform
+
+    def __len__(self) -> int:
+        return len(self.flag_table)
+    
+    def __getitem__(self, index) -> Tuple[Tensor, str]:
+        row = self.flag_table.iloc[index]
+        image = decode_image(row['path'])
+
+        label = f"{row['Flag(s)']}-{row['State']}"
+
+        if self.transform:
+            image = self.transform(image)
+
+        if self.target_transform:
+            label = self.target_transform(label)
+
+        return image, label
