@@ -5,6 +5,7 @@ from os import PathLike
 from torch import Tensor
 from torch.utils.data import Dataset
 from torchvision.io import decode_image
+from torchvision.transforms.v2 import GaussianNoise
 
 from downlad_data import get_flag_data
 
@@ -31,3 +32,29 @@ class FlagImagesDataset(Dataset):
             label = self.target_transform(label)
 
         return image, label
+    
+
+class NoisyFlags(Dataset):
+    def __init__(self, data_dir: PathLike | str = '../data', n_noisy=10, transform: Optional[Callable[[Tensor], Tensor]] = None, target_transform: Optional[Callable[[Tensor], Tensor]] = None) -> None:
+        self.flag_images = FlagImagesDataset(data_dir)
+        self.n_noisy = n_noisy
+
+        self.noise_transform = GaussianNoise()
+
+        self.transform = transform
+        self.target_transform = target_transform
+
+    def __len__(self) -> int:
+        return self.n_noisy * len(self.flag_images)
+    
+    def __getitem__(self, index) -> Tuple[Tensor, Tensor]:
+        original_img, _ = self.flag_images[index // self.n_noisy]
+        noisy_img = self.noise_transform(original_img)
+
+        if self.transform:
+            noisy_img = self.transform(noisy_img)
+
+        if self.target_transform:
+            original_img = self.target_transform(original_img)
+
+        return noisy_img, original_img
